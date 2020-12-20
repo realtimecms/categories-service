@@ -146,6 +146,8 @@ definition.action({
       data[key] = params[key]
     }
 
+    console.log("UPDATE CATEGORY", params)
+
     const category = params.category
 
     let current = await Category.get(category)

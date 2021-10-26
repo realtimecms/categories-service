@@ -242,11 +242,14 @@ definition.view({
 module.exports = definition
 
 async function start () {
+  if(!app.dao) {
+    await require('@live-change/server').setupApp({})
+    await require('@live-change/elasticsearch-plugin')(app)
+  }
 
   process.on('unhandledRejection', (reason, p) => {
     console.log('Unhandled Rejection at: Promise', p, 'reason:', reason)
   })
-
 
   app.processServiceDefinition(definition, [...app.defaultProcessors])
   await app.updateService(definition)//, { force: true })
